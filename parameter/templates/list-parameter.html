@@ -1,0 +1,15 @@
+{% extends "models/list.html" %}
+{% load icon %}
+{% load humanize %}
+{% load static %}
+
+
+{% block table-headers %}
+<th>Code</th>
+<th>Libellé</th>
+{% endblock table-headers %}
+
+{% block table-rows %}
+<td>{{object.code}}</td>
+<td>{{object.label}}</td>
+{% endblock table-rows %}

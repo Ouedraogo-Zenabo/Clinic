@@ -1,0 +1,29 @@
+{% extends "models/detail.html" %}
+{% load icon %}
+{% load humanize %}
+{% load static %}
+
+
+{% block detail %}
+{% if can_edit %}
+<a class="btn btn-sm btn-outline-success m-1" href="{% url 'app:minister-update' object.slug %}">
+    {% icon "edit" height=option_size width=option_size %}&nbsp; Modifier
+</a>
+{% endif %}
+{% if can_delete %}
+<a class="btn btn-sm btn-outline-danger m-1 delete-btn" data-url="{# url 'app:minister-delete' object.slug #}" href="#">
+    {% icon "trash" height=option_size width=option_size %} Supprimer
+</a>
+{% endif %}
+{% if object.severity %}
+<hr class="my-2" />
+<div class="typo-articles">
+
+    <strong>Sévérité :</strong>
+    <span class="float-end">
+        {{ object.severity }}
+    </span>
+
+</div>
+{% endif %}
+{% endblock detail %}

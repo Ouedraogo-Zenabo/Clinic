@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load icon %}
+
+{% block title %}{{object.get_full_name}}{% endblock title %}
+
+{% block breadcrumb %}
+{% if request.user.is_staff or request.user.assign %}
+<li class="breadcrumb-item"><a href="{{list_url}}">{{list_of}}</a></li>
+{% endif %}
+<li class="breadcrumb-item active" aria-current="page">{{object.get_full_name}}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-12">
+        <div class="card">
+            <div class="m-b-20">
+                <div class="contact-grid">
+                    <div class="profile-header niss-profile-header">
+                        profile-header niss-profile-header
+                    </div>
+                    {% if object.photo %}
+                    <img src="{{object.phot.url}}" class="user-img" alt="user-photo">
+                    {% else %}
+                    <img src="{% static 'images/avatar.png' %}" class="user-img" alt="user-photo">
+                    {% endif %}
+                    <div class="user-name">
+                        {{object.grade.label|title}} {{object.get_full_name|title}}
+                    </div>
+                    <div class="name-center">{{object.matricule|upper}}</div>
+                    <div>
+                        <span class="phone">
+                            {% icon "phone" height=option_size width=option_size %}{{object.phone}}
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <ul class="nav nav-tabs">
+                <li class="nav-item m-l-10">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#about">Competences</a>
+                </li>
+                <li class="nav-item m-l-10">
+                    <a class="nav-link" data-bs-toggle="tab" href="#skills">
+                        Stages de perfectionnement
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane body active" id="about">
+                    <p class="text-default">
+                        Professionnel militaire hautement qualifié avec une formation
+                        spécialisée en tant qu'artilleur, commando et tireur d'élite.
+                        Expert dans l'utilisation de divers systèmes d'armes lourdes, avec une capacité avérée à
+                        fournir un appui-feu précis et efficace sur le champ de bataille.
+                        Habitué à mener des opérations spéciales dans des environnements hostiles, démontrant
+                        une aptitude exceptionnelle à prendre des décisions rapides et précises sous pression.
+                        Compétent dans la reconnaissance, le renseignement et l'assaut tactique, avec une
+                        capacité démontrée à opérer en petites équipes pour atteindre les objectifs
+                        stratégiques.
+                    </p>
+                    <!-- <small class="text-muted">Email adresse: </small>
+                    <p>nourououed1@gmail.com</p>
+                    <hr>
+                    <small class="text-muted">téléphone: </small>
+                    <p>76 01 01 00</p>
+                    <hr> -->
+                </div>
+                <div class="tab-pane body" id="skills">
+                    <ul class="list-unstyled">
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover js-basic-example contact_list">
+                                    <thead>
+                                        <tr>
+                                            <th class="center"> Lieu </th>
+                                            <th class="center"> Période </th>
+                                            <th class="center"> Formation </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="odd gradeX">
+                                            <td class="center">Bamako</td>
+                                            <td class="center">2022-2023</td>
+                                            <td class="center">
+                                                <div class="badge col-green">Tankiste</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td class="center">ANKARA</td>
+                                            <td class="center">2022-2023</td>
+                                            <td class="center">
+                                                <div class="badge col-green">pilote TB2</div>
+                                            </td>
+                                        </tr>
+                                        <tr class="odd gradeX">
+                                            <td class="center">Ouagadougou</td>
+                                            <td class="center">2022-2023</td>
+                                            <td class="center">
+                                                <div class="badge col-green">Tireur d'elite</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-12">
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="project" aria-expanded="true">
+                <div class="row clearfix">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card project_widget">
+                            <div class="body">
+                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <h2 style="text-align: center;"> ÉTAT CIVIL </h2>
+                                        <div class="body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    Nom : <span class="niss-font">
+                                                        {{object.first_name}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Prénom(s) : <span class="niss-font">
+                                                        {{object.last_name}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Date de naissance :
+                                                    <span class="niss-font">
+                                                        {{object.birthdate|date:"SHORT_DATE_FORMAT"}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Lieu de naissance :
+                                                    <span class="niss-font">
+                                                        {{object.birthplace}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">Matricule :
+                                                    <span class="niss-font">
+                                                        {{object.matricule}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Date d'incorporation :
+                                                    <span class="niss-font">
+                                                        {{object.incorporation_date|date:"SHORT_DATE_FORMAT"}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <h2 style="text-align: center;"> CONTACT </h2>
+                                        <div class="body">
+                                            <ul>
+                                                <li class="list-group-item">
+                                                    Email :
+                                                    <span class="niss-font">
+                                                        {{object.email}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Numéro de téléphone :
+                                                    <span class="niss-font">
+                                                        {{object.phone}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Adresse :
+                                                    <span class="niss-font">
+                                                        {{object.address}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <h2 style="text-align: center;"> SERVICE </h2>
+                                        <div class="body">
+                                            <ul>
+                                                <li class="list-group-item">
+                                                    Armée :
+                                                    <span class="niss-font">
+                                                        {{object.structure.parent.parent.label}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Region militaire :
+                                                    <span class="niss-font">
+                                                        {{object.structure.parent.label}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Corps de troupe :
+                                                    <span class="niss-font">
+                                                        {{object.structure.label}}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Poste :
+                                                    <span class="niss-font">
+                                                        {{object.poste}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

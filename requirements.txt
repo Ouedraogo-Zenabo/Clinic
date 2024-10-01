@@ -1,0 +1,18 @@
+Django==5.0.4
+django-environ==0.10.0
+django-easy-audit
+django-csp==3.7
+django-permissions-policy==4.18.0
+django-formset==1.4
+django-import-export
+django-feather
+django-phonenumber-field
+phonenumberslite
+django-model-utils
+django-autoslug
+pillow
+django-filter
+django-chartjs
+pymemcache # if use memcached as cache memory
+redis # if use redis as cache memory
+hiredis # if use redis as cache memory

@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{object.get_full_name}}{% endblock title %}
+
+{% block breadcrumb %}
+{% if request.user.is_staff or request.user.assign %}
+<li class="breadcrumb-item"><a href="{{list_url}}">{{list_of}}</a></li>
+{% endif %}
+<li class="breadcrumb-item active" aria-current="page">{{object.get_full_name}}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-12">
+        <div class="card">
+            <div class="m-b-20">
+                <div class="contact-grid">
+                    <div class="profile-header bg-green">
+
+                    </div>
+                    {% if object.photo %}
+                    <img src="{{object.phot.url}}" class="user-img" alt="user-photo">
+                    {% else %}
+                    <img src="{% static 'images/avatar.png' %}" class="user-img" alt="user-photo">
+                    {% endif %}
+                    <p>
+                    <div class="user-name">{{object.grade.label|title}} {{object.get_full_name|title}}</div>
+                    <div class="name-center">{{object.matricule|upper}}</div>
+                    </p>
+                    <div>
+                        <span class="phone">
+                            <i class="material-icons">phone</i>{{object.phone}}</span>
+                    </div>
+                    <a href="{% url 'auth:user-update-photo' object.pk %}">
+                        <button type="button" class="btn btn-secondary">Changer de photo</button>
+                    </a>
+                    <a href="{% url 'auth:user-update' object.pk %}">
+                        <button type="button" class="btn btn-success">Modifier</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-12">
+        <div class="card">
+            <div class="profile-tab-box">
+                <div class="p-l-20">
+                    <ul class="nav ">
+                        <li class="nav-item tab-all">
+                            <a class="nav-link active show" href="#project" data-bs-toggle="tab">
+                                Mes Permissions
+                            </a>
+                        </li>
+                        <li class="nav-item tab-all p-l-20">
+                            <a class="nav-link" href="#usersettings" data-bs-toggle="tab">
+                                Mes affectations
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <form id="filtre-form" method="" action="">
+            <div class="row">
+                <div class="col-sm-2">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList"
+                        placeholder="Tapez pour rechercher...">
+                </div>
+
+
+                <div class="col-sm-3">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sélectionnez l'année</option>
+                        <option value="1">2024</option>
+                        <option value="2">2023</option>
+                        <option value="3">2022</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-3">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sélectionnez le status</option>
+                        <option value="1">En attente</option>
+                        <option value="2">Accepté</option>
+                        <option value="3">Rejeté</option>
+                    </select>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sélectionnez le motif</option>
+                        <option value="1">Mariage</option>
+                        <option value="2">Repos</option>
+                        <option value="3">Régulier</option>
+                    </select>
+                </div>
+
+
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-success">Recherche</button>
+                </div>
+            </div>
+        </form>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="project" aria-expanded="true">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card project_widget">
+                            <div class="header">
+                                <h2>Liste des permissions demandé</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover js-basic-example contact_list">
+                                        <thead>
+                                            <tr>
+                                                <th class="center"> # </th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center"> Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td class="center">1</td>
+                                                <td class="center">Permission 1</td>
+                                                <td class="center">15-07-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-green">Accepté</div>
+                                                </td>
+
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">2</td>
+                                                <td class="center">Permission 2</td>
+                                                <td class="center">01-06-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-red">Rejeté</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">3</td>
+                                                <td class="center">Permission 3</td>
+                                                <td class="center">14-04-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-green">Accepté</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">4</td>
+                                                <td class="center">Permission 4</td>
+                                                <td class="center">13-08-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-brown">En attente</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card project_widget">
+                            <div class="header">
+                                <h2>Liste des permissions en attente</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover js-basic-example contact_list">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td class="center">1</td>
+                                                <td class="center">Permission de mariage</td>
+                                                <td class="center">14-04-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-brown">En attente</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">2</td>
+                                                <td class="center">Permission de maladie</td>
+                                                <td class="center">05-09-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-brown">En attente</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card project_widget">
+                            <div class="header">
+                                <h2>Liste des permissions acceptées</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover js-basic-example contact_list">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td class="center">1</td>
+                                                <td class="center">Permission de fête</td>
+                                                <td class="center">15-07-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-green">Accepté</div>
+                                                </td>
+
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">2</td>
+                                                <td class="center">Permission de soirée</td>
+                                                <td class="center">14-04-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-green">Accepté</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card project_widget">
+                            <div class="header">
+                                <h2>Liste des permissions rejetées</h2>
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover js-basic-example contact_list">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeX">
+                                                <td class="center">1</td>
+                                                <td class="center">Permission de repos</td>
+                                                <td class="center">01-06-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-red">Rejeté</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeX">
+                                                <td class="center">2</td>
+                                                <td class="center">Permission de voyage</td>
+                                                <td class="center">05-09-2023</td>
+                                                <td class="center">
+                                                    <div class="badge col-red">Rejeté</div>
+                                                </td>
+                                                <td class="center">
+                                                    <a href="edit-leave.html" class="btn btn-tbl-edit">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-tbl-delete">
+                                                        <i class="material-icons">delete_forever</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="center">#</th>
+                                                <th class="center"> Titre </th>
+                                                <th class="center">Date de demande </th>
+                                                <th class="center"> Status </th>
+                                                <th class="center"> Action </th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

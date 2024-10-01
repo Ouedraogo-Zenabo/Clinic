@@ -1,0 +1,77 @@
+{% extends "public/base.html" %}
+
+{% load static %}
+{% load icon %}
+{% load formsetify %}
+
+{% block title %}Connexion{% endblock title %}
+
+{% block stylesheet %}
+<link href="{% static 'formset/css/bootstrap5-extra.css' %}" rel="stylesheet">
+<script type="module" src="{% static 'formset/js/django-formset.js' %}" nonce="{{request.csp_nonce}}"></script>
+{{form.media.css}}
+{% endblock stylesheet %}
+
+{% block content %}
+<django-formset class="login100-form validate-form" endpoint="{{request.path}}" csrf-token="{{csrf_token}}"
+    withhold-feedback="errors warnings success">
+    <span class="login100-form-title p-b-10">
+        <img src="{% static 'images/burkina-faso.jpg' %}" height="30%" width="30%" alt="armorie">
+    </span>
+    <span class="login100-form-title p-b-10">
+        <strong>Espace Numérique de Travail de l'Armée - Gestion des Cliniques (ENTA-Cliniques)</strong>
+    </span>
+    <span class="login100-form-title p-b-30">
+        Connexion
+    </span>
+    {% render_form form %}
+    <div class="flex-sb-m w-full p-t-15 p-b-20">
+        <div>
+            <a href="{% url 'password-reset-request' %}" class="txt1">
+                Mot de passe oublié?
+            </a>
+        </div>
+    </div>
+    <div class="container-login100-form-btn btn-bg-niss col-12 p-t-5 p-b-10">
+        {% include 'components/formset-button.html' with label="SE CONNECTER" color="btn-success" process="spinner -> submit -> okay(2000) -> proceed !~ bummer(10000) -> scrollToError" %}
+    </div>
+    <div class="text-center p-t-45 p-b-20">
+        <a href="{% url 'user-signup' %}" class="txt2"> Activer son compte ? </a>
+    </div>
+</django-formset>
+{% endblock content %}
+
+{% block javascript %}
+{{form.media.js}}
+<script nonce="{{request.csp_nonce}}">
+    const password = document.getElementById("id_password");
+
+    const div = password.parentNode;
+    div.classList.add("input-group");
+
+    const openedEye = document.createElement("i");
+    openedEye.className = "fas fa-eye";
+
+    const closedEye = document.createElement("i");
+    closedEye.className = "fas fa-eye-slash";
+
+    const button = document.createElement("button");
+    button.className = "input-group-addon";
+    button.id = "addon-wrapping";
+    button.appendChild(openedEye);
+
+    password.after(button);
+
+    button.addEventListener('click', function (elt, evt) {
+        if (button.lastChild === openedEye) {
+            button.removeChild(openedEye);
+            button.appendChild(closedEye);
+            password.setAttribute("type", "text");
+        } else {
+            button.removeChild(closedEye);
+            button.appendChild(openedEye);
+            password.setAttribute("type", "password");
+        }
+    })
+</script>
+{% endblock javascript %}
