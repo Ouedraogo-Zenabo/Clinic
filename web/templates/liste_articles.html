@@ -1,0 +1,16 @@
+<!-- templates/liste_articles.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des articles</title>
+</head>
+<body>
+    <h1>Liste des articles</h1>
+    <ul>
+        {% for article in articles %}
+            <li>{{ article.titre }} - {{ article.date_publication }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

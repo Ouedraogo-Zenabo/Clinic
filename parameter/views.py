@@ -6,12 +6,16 @@ from web.views import (
     CustomDetailView,
     CustomListView,
     CustomUpdateView,
+    CustomFormCollectionView
 )
 
 from parameter.models import Clinic
 from parameter.forms import ClinicForm
 from parameter.models import Pharmacie
 from parameter.forms import PharmacieForm
+from parameter.models import Apparatus
+from parameter.forms import ApparatusCollection
+
 # Create your views here.
 
 
@@ -80,3 +84,22 @@ class PharmacieUpdateView(CustomUpdateView):
 class ClinicDeleteView(CustomDeleteView):
     model = Clinic
     name = "clinic"
+
+
+class ApparatusView(CustomFormCollectionView):
+    model = Apparatus
+    name = "apparatus"
+    collection_class = ApparatusCollection
+    success_url = reverse_lazy("parameter:apparatus-list")
+
+
+class ApparatusListView(CustomListView):
+    model = Apparatus 
+    name = "apparatus"
+    template_name = "list-collection.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["can_delete"] = False
+
+        return context

@@ -1,0 +1,15 @@
+{% extends "models/list.html" %}
+{% load icon %}
+{% load humanize %}
+{% load static %}
+
+
+{% block table-headers %}
+<th>pH value</th>
+<th>Resistance in Ω </th>
+{% endblock table-headers %}
+
+{% block table-rows %}
+<td>{{object.ph_value}}</td>
+<td>{{object.resistance}}</td>
+{% endblock table-rows %}

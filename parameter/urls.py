@@ -56,4 +56,14 @@ urlpatterns = [
         view=views.ClinicListView.as_view(),
         name="clinic-delete",
     ),
+    path(
+        "parameters/apparatus/create/",
+        view=views.ApparatusView.as_view(),
+        name="apparatus",
+    ),
+    path(
+        "parameters/apparatus/list/",
+        view=views.ApparatusListView.as_view(),
+        name="apparatus-list",
+    ),
 ]

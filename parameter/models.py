@@ -52,3 +52,22 @@ class Pharmacie(ParameterModel):
             ("import_pharmacie", "Can import pharmacie"),
             ("print_pharmacie", "Can print pharmacie"),
         ]
+
+
+class Apparatus(models.Model):
+    # Champs pour le formulaire ChemistryForm
+    ph_value = models.FloatField(
+        verbose_name="pH value",
+        default=7.0,
+        help_text="Enter the pH value (0.0 to 14.0)",
+    )
+    
+    # Champs pour le formulaire ElectricityForm
+    resistance = models.IntegerField(
+        verbose_name="Resistance in Ω",
+        default=100,
+        help_text="Enter the resistance in Ohms (minimum 1 Ω)",
+    )
+
+    def __str__(self):
+        return f"Apparatus (pH: {self.ph_value}, Resistance: {self.resistance} Ω)"

@@ -1,0 +1,17 @@
+Vérifier l'historique des commits: 
+git log
+
+Revenir à un ancien commit:
+ git reset --hard <commit_id>
+
+Pour garder les modifications non validées dans votre répertoire de travail : 
+git reset --soft <commit_id>
+
+examiner un ancien commit sans affecter votre branche actuelle, utilisez git checkout :
+git checkout <commit_id>
+
+Créer une nouvelle branche à partir d'un ancien commit:
+ git checkout -b new-branch-name <commit_id>
+
+Pousser les changements (si nécessaire):
+git push origin <branch_name> --force
